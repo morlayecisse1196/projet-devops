@@ -17,7 +17,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo "Clonage du dépôt Git..."
-                git branch: 'main', url: 'https://github.com/morlayecisse1196/projet-devops.git'
+                git branch: 'main', url: 'https://github.com/morlayecisse1196/projet-devops.git', branch: 'main'
             }
         }
 
