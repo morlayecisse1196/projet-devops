@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "echo Build backend",
     "test": "echo Aucun test défini"
   },
   "keywords": [],
