@@ -24,40 +24,40 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 echo "Installation des dépendances Node.js..."
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Build') {
             steps {
                 echo "Construction du projet Node.js..."
-                sh 'npm run build || echo "Pas de build défini"'
+                bat 'npm run build || echo "Pas de build défini"'
             }
         }
 
         stage('Test') {
             steps {
                 echo "Exécution des tests..."
-                sh 'npm test || echo "Pas de tests définis"'
+                bat 'npm test || echo "Pas de tests définis"'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 echo "Construction de l'image Docker..."
-                sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
+                bat "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
             }
         }
 
-        stage('Push Docker Image') {
+        stage('Pubat Docker Image') {
             steps {
                 echo "Poussée de l'image Docker vers DockerHub..."
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials',
                                 usernameVariable: 'DOCKER_USER',
                                 passwordVariable: 'DOCKER_PASS')]) {
-                    sh '''
+                    bat '''
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker push "$DOCKER_IMAGE:$DOCKER_TAG"
+                        docker pubat "$DOCKER_IMAGE:$DOCKER_TAG"
                         docker logout
                     '''
                 }
@@ -67,7 +67,7 @@ pipeline {
         stage('Deploy with Docker Compose') {
             steps {
                 echo "Déploiement du backend Node.js avec Docker Compose 🚀"
-                sh "docker-compose up -d --build"
+                bat "docker-compose up -d --build"
             }
         }
     }
