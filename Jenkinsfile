@@ -1,9 +1,7 @@
 pipeline {
-    // agent {
-    //     // label 'agent-window'   // ou agent any si tu veux exécuter partout
-    // }
-
-    agent any
+    agent {
+        label 'agent-windows'// ou agent any si tu veux exécuter partout
+    }
 
     environment {
         DOCKERHUB_USER = "morlayecisse1196"
